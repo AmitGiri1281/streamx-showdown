@@ -18,13 +18,15 @@ export const getYouTubeTrailerUrl = async (title) => {
     const data = await response.json();
 
     if (data.items && data.items.length > 0) {
-      const videoId = data.items[0].id.videoId;
-      return `https://www.youtube.com/embed/${videoId}`;
-    } else {
-      return null;
+      const videoId = data.items[0]?.id?.videoId;
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
     }
+
+    return null; // No trailer found
   } catch (error) {
-    console.error('Error fetching trailer from YouTube:', error);
+    console.error('Error fetching trailer from YouTube:', error.message);
     return null;
   }
 };
