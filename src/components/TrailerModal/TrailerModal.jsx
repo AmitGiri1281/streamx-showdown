@@ -1,13 +1,22 @@
-import PropTypes from 'prop-types'
-import { useEffect } from 'react'
-import { createPortal } from 'react-dom'
-import * as S from './TrailerModal.styles'
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
+import * as S from './TrailerModal.styles';
 import { getYouTubeTrailerUrl } from '@services/youtube';
 
-// import { getYouTubeTrailerUrl } from '@services/youtube'
-
 const TrailerModal = ({ videoKey, onClose }) => {
+  const [trailerUrl, setTrailerUrl] = useState(null);
+
   useEffect(() => {
+    const fetchTrailerUrl = async () => {
+      const url = await getYouTubeTrailerUrl(videoKey);
+      setTrailerUrl(url);
+    };
+
+    if (videoKey) {
+      fetchTrailerUrl();
+    }
+
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         onClose();
@@ -21,11 +30,9 @@ const TrailerModal = ({ videoKey, onClose }) => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
-  }, [onClose]);
+  }, [videoKey, onClose]);
 
-  if (!videoKey) return null;
-
-  const trailerUrl = getYouTubeTrailerUrl(videoKey); // ✅ No async, works instantly
+  if (!videoKey || !trailerUrl) return null;
 
   return createPortal(
     <S.ModalOverlay onClick={onClose}>
