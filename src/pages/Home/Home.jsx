@@ -64,15 +64,20 @@ const Home = () => {
     setTrailerKey(null)
   }
 
-  if (error) {
-    return (
-      <S.ErrorContainer>
-        <h2>Error loading movies</h2>
-        <p>{error}</p>
+ if (error) {
+  return (
+    <S.ErrorContainer>
+      <h2>Error loading movies</h2>
+      <p>{error}</p>
+      {isLoading ? (
+        <Loader />
+      ) : (
         <button onClick={resetToTrending}>Try Again</button>
-      </S.ErrorContainer>
-    )
-  }
+      )}
+    </S.ErrorContainer>
+  )
+}
+
 
   return (
     <S.HomeContainer data-theme={theme}>
