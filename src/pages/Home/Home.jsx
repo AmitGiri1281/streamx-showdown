@@ -65,14 +65,16 @@ const Home = () => {
   }
 
   if (error) {
-    return (
-      <S.ErrorContainer>
-        <h2>Error loading movies</h2>
-        <p>{error}</p>
-        <button onClick={resetToTrending}>Try Again</button>
-      )}
+  return (
+    <S.ErrorContainer>
+      <h2>Error loading movies</h2>
+      <p>{error}</p>
+     <button onClick={resetToTrending} disabled={isLoading}>
+  {isLoading ? 'Retrying...' : 'Try Again'}
+</button>
+
     </S.ErrorContainer>
-  )
+  );
 }
 
 

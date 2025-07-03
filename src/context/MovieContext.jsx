@@ -93,19 +93,24 @@ export const MovieProvider = ({ children }) => {
     }
   }
 
-  const resetToTrending = async () => {
-    try {
-      setIsLoading(true)
-      const trendingMovies = await fetchTrendingMovies()
-      setMovies(trendingMovies)
-      setSelectedGenre(null)
-      setSearchQuery('')
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setIsLoading(false)
-    }
+ const resetToTrending = async () => {
+  try {
+    setError(null); // ✅ Clear any previous error
+    setIsLoading(true); // ✅ Trigger loading state
+
+    const trendingMovies = await fetchTrendingMovies();
+
+    setMovies(trendingMovies); // ✅ Show trending movies
+    setFeaturedMovie(trendingMovies[0]); // ✅ Update banner
+    setSelectedGenre(null);
+    setSearchQuery('');
+  } catch (err) {
+    setError(err.message || 'Something went wrong. Please try again.');
+  } finally {
+    setIsLoading(false);
   }
+};
+
 
   return (
     <MovieContext.Provider
