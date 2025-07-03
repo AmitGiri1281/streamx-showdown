@@ -11,22 +11,27 @@ const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 export const getYouTubeTrailerUrl = async (title) => {
   try {
     const query = `${title} official trailer`;
-    const response = await fetch(
-      `${BASE_URL}?part=snippet&maxResults=1&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video`
-    );
-
+    const url = `${BASE_URL}?part=snippet&maxResults=1&q=${encodeURIComponent(query)}&key=${API_KEY}&type=video`;
+    
+    console.log('Request URL:', url); // Log the request URL
+    
+    const response = await fetch(url);
     const data = await response.json();
-
+    
+    console.log('YouTube API Response:', data); // Log full response
+    
     if (data.items && data.items.length > 0) {
       const videoId = data.items[0]?.id?.videoId;
+      console.log('Found Video ID:', videoId); // Log the video ID
       if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}`;
+        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        console.log('Embed URL:', embedUrl); // Log the embed URL
+        return embedUrl;
       }
     }
-
-    return null; // No trailer found
+    return null;
   } catch (error) {
-    console.error('Error fetching trailer from YouTube:', error.message);
+    console.error('Error:', error);
     return null;
   }
 };
