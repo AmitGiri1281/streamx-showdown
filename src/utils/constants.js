@@ -27,4 +27,11 @@ export const themes = {
       error: '#ff6666',
     },
   },
-}
+};
+
+export const TMDB_ATTRIBUTION = "This product uses the TMDB API but is not endorsed or certified by TMDB.";
+
+export const APP_INFO = {
+  name: "StreamX Showdown",
+  year: new Date().getFullYear()
+};
