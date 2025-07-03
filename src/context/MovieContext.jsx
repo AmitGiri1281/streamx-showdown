@@ -93,21 +93,21 @@ export const MovieProvider = ({ children }) => {
     }
   }
 
-  const resetToTrending = async () => {
+ const resetToTrending = async () => {
   try {
-    setIsLoading(true)
-    setError(null) // ✅ clear error
-    const trendingMovies = await fetchTrendingMovies()
-    setMovies(trendingMovies)
-    setFeaturedMovie(trendingMovies[0]) // ✅ reset banner movie
-    setSelectedGenre(null)
-    setSearchQuery('')
+    setError(null); // ✅ CLEAR ERROR so UI can re-render
+    setIsLoading(true);
+    const trendingMovies = await fetchTrendingMovies();
+    setMovies(trendingMovies);
+    setSelectedGenre(null);
+    setSearchQuery('');
   } catch (err) {
-    setError(err.message)
+    setError(err.message);
   } finally {
-    setIsLoading(false)
+    setIsLoading(false);
   }
-}
+};
+
 
 
   return (
