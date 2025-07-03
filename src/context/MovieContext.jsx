@@ -93,22 +93,19 @@ export const MovieProvider = ({ children }) => {
     }
   }
 
- const resetToTrending = async () => {
-  try {
-    setError(null); // ✅ CLEAR ERROR so UI can re-render
-    setIsLoading(true);
-    const trendingMovies = await fetchTrendingMovies();
-    setMovies(trendingMovies);
-    setSelectedGenre(null);
-    setSearchQuery('');
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setIsLoading(false);
+  const resetToTrending = async () => {
+    try {
+      setIsLoading(true)
+      const trendingMovies = await fetchTrendingMovies()
+      setMovies(trendingMovies)
+      setSelectedGenre(null)
+      setSearchQuery('')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
-};
-
-
 
   return (
     <MovieContext.Provider

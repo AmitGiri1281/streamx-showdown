@@ -64,14 +64,11 @@ const Home = () => {
     setTrailerKey(null)
   }
 
- if (error) {
-  return (
-    <S.ErrorContainer>
-      <h2>Error loading movies</h2>
-      <p>{error}</p>
-      {isLoading ? (
-        <Loader />
-      ) : (
+  if (error) {
+    return (
+      <S.ErrorContainer>
+        <h2>Error loading movies</h2>
+        <p>{error}</p>
         <button onClick={resetToTrending}>Try Again</button>
       )}
     </S.ErrorContainer>
